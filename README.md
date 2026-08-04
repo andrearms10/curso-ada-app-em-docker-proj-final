@@ -14,8 +14,8 @@ Projeto: Curso ADA - Docker
  Flask - postegres - doker - GitHub - Minikube - Drawio - Notion - Gemini - Claude - Adapta One
 
 # Arquitetura
+<img width="721" height="412" alt="arquitetura" src="https://github.com/user-attachments/assets/2dfbbc41-2df1-438f-8b05-18ad70996a1c" />
 
-![arquitetura.png](arquitetura.png)
 
 ---
 
@@ -60,9 +60,13 @@ Testes - CRUD
 # Publicação da imagem no Docker Hub:
 `$ docker push andrearms/api-produtos:v2`
 
-# Imagem `api-produtos` publicada no Docker Hub
 
-![image.png](image.png)
+
+## Imagem `api-produtos` publicada no Docker Hub
+
+<img width="1262" height="732" alt="image" src="https://github.com/user-attachments/assets/926952d7-65ac-4e40-910c-6498f4054218" />
+
+
 
 # ::: Deploy no cluster (colocando a aplicação no ar) :::
 
@@ -70,29 +74,37 @@ Testes - CRUD
 
 `kubectl create ns delivery` 
 
-# Deployment do Pod B**anco** (dentro da declaração namespace: delivery)
+## Deployment do Pod Banco** (dentro da declaração namespace: delivery)
 
 `kubectl apply -f postgres.yaml`
 
-![image.png](image%201.png)
+<img width="570" height="57" alt="image 1" src="https://github.com/user-attachments/assets/398953b1-7221-4cfb-83a8-6215b6b8aabc" />
 
-#  verificar  o pod no namespace (delivery)
+
+
+#  Verificar  o pod no namespace (delivery)
 
 `kubectl get po -n delivery` 
 
-![image.png](image%202.png)
+<img width="508" height="57" alt="image 2" src="https://github.com/user-attachments/assets/cfcdab46-3ac1-41ed-8451-21bca9ee13e3" />
 
-# Deployment do Pod APP   (dentro da declaração namespace: delivery)
+
+
+## Deployment do Pod APP   (dentro da declaração namespace: delivery)
 
 `kubectl apply -f api-produtos-v2.yaml`
 
-![image.png](image%203.png)
+<img width="590" height="122" alt="image 3" src="https://github.com/user-attachments/assets/a59a3411-824e-4c37-8a07-d08f1c43a452" />
 
-#  verificar  o pod no namespace (delivery)
+
+
+##  Verificar  o pod no namespace (delivery)
 
 `kubectl get po -n delivery` 
 
-![image.png](image%204.png)
+<img width="510" height="103" alt="image 4" src="https://github.com/user-attachments/assets/506aa788-f33f-418e-be8d-af35ee74ea09" />
+
+
 
 ---
 
