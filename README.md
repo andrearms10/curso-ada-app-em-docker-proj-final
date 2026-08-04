@@ -1,19 +1,22 @@
-# curso-ada-app-em-docker-proj-final
-Entrega do Projeto Final do Módulo Docker - Aplicação em Docker
+# Entrega do Projeto Final - Módulo Docker - Aplicação em Docker
 
 ---
 
-# Delivery - Projeto Final
+## Delivery - Projeto Final
 
 Status: Finalizado
+
 Projeto: Curso ADA - Docker 
 
-# Playground (Ferramentas utilizadas)
 
 
- Flask - postegres - doker - GitHub - Minikube - Drawio - Notion - Gemini - Claude - Adapta One
+## Playground (Ferramentas utilizadas)
 
-# Arquitetura
+ Flask - Postegres - Doker - GitHub - Minikube - Drawio - Notion - Gemini - Claude - Adapta One
+
+ 
+
+## Arquitetura
 <img width="721" height="412" alt="arquitetura" src="https://github.com/user-attachments/assets/2dfbbc41-2df1-438f-8b05-18ad70996a1c" />
 
 
@@ -34,30 +37,32 @@ Manifesto  Pod (declarativo)
 
 Sripts
 
-- [abrir-tunel.sh](http://abrir-tunel.sh/)
+- abrir-tunel.sh
 
 Testes - CRUD
 
-- [crud-1.sh](http://crud-1.sh/)
-- [crud-2-roll.sh](http://crud-2-roll.sh/)
-- [crud-3-recre.sh](http://crud-3-recre.sh/)
+- crud-1.sh
+- crud-2-roll.sh
+- crud-3-recre.sh
 
 ---
 
 # ::: Subida dos ambientes :::
 
-# Subir o docker desktop
+- Subir o docker desktop
 
-# Subir o minikube (dentro do VS Code)
+- Subir o minikube - dentro do VS Code
 
-`minikube start`
+   `minikube start`
 
 # ::: Build e push da imagem no docker hub :::
 
-# Construção da imagem :
+## Construção da imagem :
 `$ docker build . -f app.dockerfile -t andrearms/api-produtos:v2`
 
-# Publicação da imagem no Docker Hub:
+
+
+## Publicação da imagem no Docker Hub:
 `$ docker push andrearms/api-produtos:v2`
 
 
@@ -70,9 +75,11 @@ Testes - CRUD
 
 # ::: Deploy no cluster (colocando a aplicação no ar) :::
 
-# Criando namespace delivery
+## Criando namespace delivery
 
 `kubectl create ns delivery` 
+
+
 
 ## Deployment do Pod Banco** (dentro da declaração namespace: delivery)
 
@@ -117,17 +124,21 @@ O Service é a "porta de entrada" que permite acesso externo.
 
 `kubectl get svc -n delivery`
 
-![image.png](image%205.png)
+<img width="602" height="107" alt="image 5" src="https://github.com/user-attachments/assets/2b5ee545-d28a-4d63-93c6-8cf1ea647cf3" />
+
+
+
 
 Com os services acima,  pedi ao Minikube para dar a URL pública:
 
 `minikube service api-service-1 -n delivery --url`
 
-![image.png](image%206.png)
+<img width="676" height="41" alt="image 6" src="https://github.com/user-attachments/assets/5884f07e-24ad-4d0a-af63-73107dd44717" />
 
-![image.png](image%207.png)
+<img width="672" height="38" alt="image 7" src="https://github.com/user-attachments/assets/0360d7c3-2fc9-4693-baeb-2fc284cff667" />
 
-![image.png](image%208.png)
+<img width="632" height="40" alt="image 8" src="https://github.com/user-attachments/assets/20fab3e5-f30e-45a1-aa74-8054e5e64d75" />
+
 
 ---
 
@@ -138,10 +149,13 @@ Com os services acima,  pedi ao Minikube para dar a URL pública:
 MAs para funcionar foi necessário abri um túnel da minha máquina até o POD para tanto utilizei o **port-forward** 
 
 `kubectl port-forward -n delivery svc/api-service-1 5000:5000 &
+
 kubectl port-forward -n delivery svc/api-service-2 5001:5000 &
+
 kubectl port-forward -n delivery svc/api-service-3 5002:5000 &`
 
 > Que é o script - abrir-tunel.sh
+>
 > 
 
 # ::: Requisições - Cada operação do CRUD vira um comando curl:::
