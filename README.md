@@ -81,7 +81,7 @@ Testes - CRUD
 
 
 
-## Deployment do Pod Banco** (dentro da declaração namespace: delivery)
+## Deployment do Pod Banco (dentro da declaração namespace: delivery)
 
 `kubectl apply -f postgres.yaml`
 
@@ -89,7 +89,7 @@ Testes - CRUD
 
 
 
-#  Verificar  o pod no namespace (delivery)
+##  Verificar  o pod no namespace (delivery)
 
 `kubectl get po -n delivery` 
 
@@ -119,7 +119,7 @@ Testes - CRUD
 
 **Services**
 
-Pods dentro do cluster são **isolados**. Sem um Service, ninguém de fora consegue acessar
+Pods dentro do cluster são **isolados**. Sem um Service, ninguém de fora consegue acessar.
 O Service é a "porta de entrada" que permite acesso externo.
 
 `kubectl get svc -n delivery`
@@ -130,6 +130,7 @@ O Service é a "porta de entrada" que permite acesso externo.
 
 
 Com os services acima,  pedi ao Minikube para dar a URL pública:
+
 
 `minikube service api-service-1 -n delivery --url`
 
@@ -146,7 +147,7 @@ Com os services acima,  pedi ao Minikube para dar a URL pública:
 
 ---
 
-MAs para funcionar foi necessário abri um túnel da minha máquina até o POD para tanto utilizei o **port-forward** 
+**Mas para funcionar foi necessário abrir um túnel da minha máquina até o POD para tanto utilizei o** **port-forward** **
 
 `kubectl port-forward -n delivery svc/api-service-1 5000:5000 &
 
@@ -155,8 +156,8 @@ kubectl port-forward -n delivery svc/api-service-2 5001:5000 &
 kubectl port-forward -n delivery svc/api-service-3 5002:5000 &`
 
 > Que é o script - abrir-tunel.sh
->
-> 
+
+ 
 
 # ::: Requisições - Cada operação do CRUD vira um comando curl:::
 
@@ -166,80 +167,100 @@ O `curl` é a ferramenta que simula um cliente usando sua API. Você manda um co
 
 `curl -X POST [http://127.0.0.1:5000/produtos](http://127.0.0.1:5000/produtos) -H "Content-Type: application/json" -d '{"nome": "Chocovelvet"}'`
 
+
+
 📝 Create  - api-produtos-2 → POD  2
 
 `curl -X POST http://127.0.0.1:5001/produtos -H "Content-Type: application/json" -d '{"nome": "Laranjeira"}'`
+
+
 
 📝 Create  - api-produtos-3 → POD  3
 
 `curl -X POST http://127.0.0.1:5002/produtos -H "Content-Type: application/json" -d '{"nome": "Chocomelo"}'`
 
+
+
 📖 Read (Listar todos produtos) - api-produtos-2 → POD  2
 
 `curl http://127.0.0.1:5001/produtos`
+
+
 
 **📖 Read (Pede a API o produto ID 1) -** api-produtos-3 → POD  3
 
 `curl http://127.0.0.1:5002/produtos/1`
 
+
+
 🔄 Update (Atualizar - Pede pra atualizar o produto 1, trocando o nome para "cafe-termo".) - api-produtos-1 → POD  1
 
 `curl -X PUT http://127.0.0.1:5000/produtos/1 -H "Content-Type: application/json" -d '{"nome": "cafe-termo"}'`
+
+
 
 ❌ Delete (Deletar o ID 1) -  api-produtos-2 → POD  2
 
 `curl -X DELETE http://127.0.0.1:5001/produtos/1`
 
+
+
 # ::: Rolling Update:::
 
-Fechar o túnel
+- Fechar o túnel
 
-Terminal 2: Monitorar Pods
+- Terminal 2: Monitorar Pods
 
-`kubectl get pods -n delivery -w`
+   `kubectl get pods -n delivery -w`
 
-Deploy
+- Deploy
 
-`kubectl apply -f api-produtos-v2-rollingupdate.yaml`
+   `kubectl apply -f api-produtos-v2-rollingupdate.yaml`
 
-Acompanhar o processo de deployment
+- Acompanhar o processo de deployment
 
-Registro dos pods - para fazer comparação de pods antes e depois do deploy - exibido status / restars / age
+- Registro dos pods - para fazer comparação de pods antes e depois do deploy - exibido status / restars / age
 
-`kubectl get po -n delivery`
+   `kubectl get po -n delivery`
 
-Abrir o túnel
+- Abrir o túnel
 
-Teste CRUD
+- Teste CRUD
 
-`./crud-2-roll.sh`
+   `./crud-2-roll.sh`
+
+  
 
 # ::: Recreate:::
 
 > Quando você não quer múltiplas versões rodando simultaneamente!
-> 
+ 
 
-Fechar o túnel
+- Fechar o túnel
 
-Terminal 2: Monitorar o deploy nos Pods
+- Terminal 2: Monitorar o deploy nos Pods
 
-`kubectl get pods -n delivery -w`
+   `kubectl get pods -n delivery -w`
 
-Deploy
+- Deploy
 
-`kubectl apply -f api-produtos-v2-recreate.yaml`
+   `kubectl apply -f api-produtos-v2-recreate.yaml`
 
-Acompanhar o processo de deployment
+- Acompanhar o processo de deployment
 
-Registro dos pods - para fazer comparação de pods antes e depois do deploy - exibido status / restars / age
+- Registro dos pods - para fazer comparação de pods antes e depois do deploy - exibido status / restars / age
 
-`kubectl get po -n delivery`
+   `kubectl get po -n delivery`
 
-Abrir o túnel
+- Abrir o túnel
 
-Teste CRUD
+- Teste CRUD
 
-`./crud-3-recre.sh`
+   `./crud-3-recre.sh`
+
+
+  ---
+  
 
 # ::: Logs::
 
@@ -614,11 +635,3 @@ Use o código com cuidado.
 
 1. **`> /dev/null 2>&1`**: Esconde o texto padrão do Kubernetes ("*Forwarding from 127.0.0.1...*"). Isso deixa a saída do seu script limpa e bonita como você planejou.
 2. **`trap ... SIGINT` e `wait`**: Garante que quando você apertar `CTRL+C`, o script capture o comando e mate os 3 port-forwards que ficaram rodando escondidos em segundo plano, evitando portas presas na sua máquina.
-
----
-
-💡 Se precisar de mais ajustes no ambiente, escolha como quer prosseguir:
-
-- Aprender como testar se as rotas estão respondendo usando um comando **curl** direto no script.
-- Ver o que fazer caso dê o erro de **porta já em uso** (Address already in use).
-- Configurar uma verificação prévia para saber se o **Minikube está ativo** antes de abrir o túnel.
