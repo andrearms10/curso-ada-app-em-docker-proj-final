@@ -1,4 +1,4 @@
-# Entrega do Projeto Final - Módulo Docker - Aplicação em Docker
+# Projeto Final - Módulo Docker - Aplicação em Docker
 
 ---
 
