@@ -5,8 +5,8 @@ Entrega do Projeto Final do Módulo Docker - Aplicação em Docker
 
 # Delivery - Projeto Final
 
-Status: Em andamento
-Projeto: Curso ADA - Docker (https://app.notion.com/p/Curso-ADA-Docker-3a6449fc2cb280d0a740f4ace1f2126a?pvs=21)
+Status: Finalizado
+Projeto: Curso ADA - Docker 
 
 # Playground (Ferramentas utilizadas)
 
